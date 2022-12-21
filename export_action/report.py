@@ -8,7 +8,7 @@ import csv
 import re
 
 from django.http import HttpResponse
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -182,7 +182,7 @@ def list_to_csv_response(data, title='report', header=None, widths=None):
     response = HttpResponse(content_type="text/csv; charset=UTF-8")
     cw = csv.writer(response)
     for row in chain([header] if header else [], data):
-        cw.writerow([force_text(s).encode(response.charset) for s in row])
+        cw.writerow([force_str(s).encode(response.charset) for s in row])
     return response
 
 
